@@ -1,13 +1,12 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner sc=  new Scanner(new File("Задача ВС Java Сбер.csv"));
-        ArrayList<City> cities = new ArrayList<>();
+        List<City> cities = new ArrayList<>();
         while (sc.hasNextLine()){
 
             String[] disrib = sc.nextLine().split(";");
@@ -18,15 +17,52 @@ public class Main {
                 cities.add(new City(disrib[1], disrib[2], disrib[3], Integer.parseInt(disrib[4]), disrib[5]));
             }
 
-
-
         }
+
+        // Через Comparator
+
+        cities.sort(new Comparator<City>() {
+            @Override
+            public int compare(City o1, City o2) {
+               if (o1.getNameCity().toLowerCase().compareTo(o2.getNameCity().toLowerCase()) > 0){
+                   return 1;
+               }
+               else  if((o1.getNameCity().toLowerCase().compareTo(o2.getNameCity().toLowerCase()) < 0)){
+                   return  -1;
+               }
+               return 0;
+            }
+        });
+
+        // lambda
+//        cities.sort(City::compareTo);
+//        System.out.println(cities);
+
+        // Sort №2
+        cities.sort(new Comparator<City>() {
+            @Override
+            public int compare(City o1, City o2) {
+                if (o1.getDistrict().compareTo(o2.getDistrict()) > 0){
+                    return 1;
+                }
+                else  if(o1.getDistrict().compareTo(o2.getDistrict()) < 0){
+                    return  -1;
+                }
+                return 0;
+            }
+        });
+
+        // lambda
+        cities.sort(City::compareTo);
         System.out.println(cities);
+
+
+
     }
 
 
 }
-class City{
+class City implements  Comparable{
 
     private String nameCity;
     private String region;
@@ -90,5 +126,30 @@ class City{
     @Override
     public String toString() {
         return String.format("City{name='%s', region='%s', district='%s', population=%d, foundation='%s'}", nameCity, region, district, population, foundation);
+    }
+
+
+    // Sort № 1
+//    @Override
+//    public int compareTo(Object o) {
+//        if (o instanceof City city){
+//            return nameCity.toLowerCase().compareTo(city.getNameCity().toLowerCase());
+//        }
+//        throw new RuntimeException();
+//
+//    }
+
+    // Sort 2
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof City city) {
+            if  (district.compareTo(city.getDistrict()) == 0){
+                return nameCity.compareTo(city.getNameCity());
+            }
+            else {
+                return  district.compareTo(city.getDistrict());
+            }
+        }
+        throw new RuntimeException();
     }
 }
