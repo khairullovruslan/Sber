@@ -19,10 +19,16 @@ public class Main {
 
         }
         System.out.println(getMaxPopulation(cities));
+
+        System.out.println();
         sortByName(cities);
         for(int i = 0; i < 10; i++) {
             System.out.println(cities.get(i));
         }
+
+        System.out.println();
+
+        System.out.println(numberOfCitiesInTheRegion(cities));
 
         System.out.println();
 
@@ -38,6 +44,19 @@ public class Main {
 
 
 
+
+    }
+    public static  Map<String,Integer> numberOfCitiesInTheRegion(List<City> cities){
+        Map<String, Integer> regions = new HashMap<>();
+        for (int i = 0; i < cities.size(); i++){
+            if (regions.containsKey(cities.get(i).getRegion())){
+                regions.put(cities.get(i).getRegion(), regions.get(cities.get(i).getRegion()) + 1);
+            }
+            else {
+                regions.put(cities.get(i).getRegion(), 1);
+            }
+        }
+        return regions;
 
     }
 
