@@ -18,46 +18,55 @@ public class Main {
             }
 
         }
+        sortByName(cities);
+        for(int i = 0; i < 10; i++) {
+            System.out.println(cities.get(i));
+        }
 
-        // Через Comparator
+        System.out.println();
 
-        cities.sort(new Comparator<City>() {
-            @Override
-            public int compare(City o1, City o2) {
-               if (o1.getNameCity().toLowerCase().compareTo(o2.getNameCity().toLowerCase()) > 0){
-                   return 1;
-               }
-               else  if((o1.getNameCity().toLowerCase().compareTo(o2.getNameCity().toLowerCase()) < 0)){
-                   return  -1;
-               }
-               return 0;
-            }
-        });
+        sortingByFederalDistrictAndCityName(cities);
+        for(int i = 0; i < 10; i++){
+            System.out.println(cities.get(i));
+        }
+
 
         // lambda
-//        cities.sort(City::compareTo);
-//        System.out.println(cities);
+        //cities.sort(City::compareTo);
 
-        // Sort №2
+
+
+    }
+
+    public  static void sortByName(List<City> cities){
         cities.sort(new Comparator<City>() {
             @Override
             public int compare(City o1, City o2) {
-                if (o1.getDistrict().compareTo(o2.getDistrict()) > 0){
+                if (o1.getNameCity().toLowerCase().compareTo(o2.getNameCity().toLowerCase()) > 0){
                     return 1;
                 }
-                else  if(o1.getDistrict().compareTo(o2.getDistrict()) < 0){
+                else  if((o1.getNameCity().toLowerCase().compareTo(o2.getNameCity().toLowerCase()) < 0)){
                     return  -1;
                 }
                 return 0;
             }
         });
+    }
+    public  static void sortingByFederalDistrictAndCityName(List<City> cities){
+        cities.sort(new Comparator<City>() {
+            @Override
+            public int compare(City o1, City o2) {
+                if (o1.getDistrict().compareTo(o2.getDistrict())  ==  0){
+                    return o1.getNameCity().compareTo(o2.getNameCity());
+                }
+                else  if(o1.getDistrict().compareTo(o2.getDistrict()) < 0){
+                    return  -1;
+                }
+                return  1;
+            }
 
-        // lambda
-        cities.sort(City::compareTo);
-        System.out.println(cities);
-
-
-
+        }
+        );
     }
 
 
