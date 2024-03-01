@@ -18,6 +18,7 @@ public class Main {
             }
 
         }
+        System.out.println(getMaxPopulation(cities));
         sortByName(cities);
         for(int i = 0; i < 10; i++) {
             System.out.println(cities.get(i));
@@ -35,6 +36,19 @@ public class Main {
         //cities.sort(City::compareTo);
 
 
+
+
+
+    }
+
+    public  static  City getMaxPopulation(List<City> cities){
+        City cityWithMaxPop  = cities.get(0);
+        for (int i = 1; i < cities.size(); i++){
+            if (cities.get(i).getPopulation() > cityWithMaxPop.getPopulation()){
+                cityWithMaxPop = cities.get(i);
+            }
+        }
+        return cityWithMaxPop;
 
     }
 
@@ -68,6 +82,7 @@ public class Main {
         }
         );
     }
+
 
 
 }
